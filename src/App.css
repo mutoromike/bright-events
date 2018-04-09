@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> 7202d7c612adb05254860fcc19bc5db60698c302
 html, body {	
 	height: 100%;
   width: 100%;
@@ -296,15 +292,12 @@ footer {
 	padding: 14px 0;
 	text-transform: uppercase;
 	border-color: #5a3f3f;
-<<<<<<< HEAD
-=======
 }
 .btn-register:hover,
 .btn-register:focus {
 	color: #fff;
 	background-color: #f17371;
 	border-color: #8a7070;
->>>>>>> 7202d7c612adb05254860fcc19bc5db60698c302
 }
 .btn-register:hover,
 .btn-register:focus {

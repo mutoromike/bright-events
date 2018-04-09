@@ -5,20 +5,11 @@ class Login extends Component {
   render() {
     return (
         <div className="container page-content">
-        
+        <br />
+        <br />
+        <br />
+        <br />
             <div id="loginbox" className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-                
-                {/* response */}        
-                <div className="alert alert-success" role="alert" id="reg-alert">
-                    {/* response here */}
-                </div>        
-                {/* end response */}
-
-                {/* error */}        
-                <div className="alert alert-danger" role="alert" id="reg-alert">
-                    {/* error here */}
-                </div>        
-                {/* end error */}
         
                 <div className="panel panel-login ">
                     <div className="panel-heading">

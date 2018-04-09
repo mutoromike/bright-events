@@ -9,6 +9,10 @@ class Event extends Component {
     render() {
         return (
             <div className="container page-content">
+            <br />
+        <br />
+        <br />
+        <br />
             <div className="row container">
                 {/* response */}
                 {/* error */}

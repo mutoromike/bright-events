@@ -1,26 +1,27 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 import './App.css';
 import Event from './components/event';
+import Header from './components/header';
+import Events from './components/events';
+import Register from './components/register';
+import Login from './components/login';
+// import Intro from './components/landing';
 
 class App extends Component {
   render() {
     return (
-<<<<<<< HEAD
       <div>
-        < Event />
-=======
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          Mnakuaga na umama sana!!
-        </p>
->>>>>>> 7202d7c612adb05254860fcc19bc5db60698c302
+        < Header />
+        {/* < Intro /> */}
+        <Route path='/events' component={Events}/>
+        <Route path='/login' component={Login}/>
+        <Route path='/register' component={Register}/>
+        <Route path='/event' component={Event}/>
       </div>
     );
   }
 }
 
 export default App;
+// A module can only contain one default export

@@ -1,23 +1,12 @@
 import React, {Component} from 'react';
-import Events from './events'
-
-const Route = ({ path, component }) => {
-  const pathname = window.location.pathname;
-  if (pathname.match(path)) {
-    return (
-      React.createElement(component)
-    );
-  } else {
-    return null;
-  }
-};
+import {Link} from 'react-router-dom';
 
 class Header extends Component {
 
   render() {
     return (
       <div className="header clearfix">
-        <nav className="navbar navbar-default navbar-fixed-top">
+        <nav className="navbar navbar-inverse navbar-fixed-top">
         <div className="container-fluid navbar-left">
         <ul className="nav navbar-nav navbar-center">
           <li>
@@ -47,24 +36,21 @@ class Header extends Component {
                 <div className="collapse navbar-collapse" id="main-navigation">
                     <ul className="nav navbar-nav navbar-center">
                         <li>
-                            <a href="/" className="page-scroll">Home</a>
+                            <Link to="/" className="page-scroll">Home</Link>
                         </li>
                         <li>
-                            <a href="/api/v2/events" className="page-scroll">Events</a>
+                            <Link to="/events" className="page-scroll">Events</Link>
                         </li>
                         <li>
-                            <a href="/api/v2/auth/register" className="page-scroll">Register</a>
+                            <Link to="/register" className="page-scroll">Register</Link>
                         </li>
                         <li>
-                            <a href="/api/v2/auth/login" className="page-scroll">Login</a>
+                            <Link to="/login" className="page-scroll">Login</Link>
                         </li> 
                     </ul>                    
                 </div>                                
             </div>            
         </nav>
-        {/* <Events /> */}
-        <Route path='/atlantic' component={Atlantic} />
-        <Route path='/pacific' component={Pacific} />
     </div>
     );
   }
