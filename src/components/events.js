@@ -25,7 +25,7 @@ class Events extends Component {
                                     <th>Category</th>
                                     <th>Location</th>
                                     <th>Date</th>
-                                    <th>Details</th>
+                                    <th>RSVP</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -55,7 +55,34 @@ class Events extends Component {
                                             <a href="/api/v1/{{ item['name'] }}/rsvp" className="btn btn-primary">RSVP</a>
                                         </td>
                                 </tr>
+                                
                                 {/* endfor */}
+                            </tbody>
+                        </table>
+                        <table className="table table-hover" id="activity-table">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <div className="form-group" style={{width: 400}}>
+                                    <h5>
+                                        More Details
+                                    </h5>
+                                    bkbkjhkjhkjhjh
+                                    </div>
+                                    </td>
+                                    <td>
+                                        <div className="form-group" style={{width: 400}}>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h5> Share With Friends </h5>
+                                    </td>
+                                    <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Facebook &nbsp;&nbsp;&nbsp;Twitter&nbsp;&nbsp;&nbsp; LinkedIn
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
