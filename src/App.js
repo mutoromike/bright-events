@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import './App.css';
-import Event from './components/event';
+import MyEvents from './components/myEvents';
 import Header from './components/header';
 import Events from './components/events';
 import Register from './components/register';
 import Login from './components/login';
+import Home from './components/home';
 // import Intro from './components/landing';
 
 class App extends Component {
@@ -17,7 +18,8 @@ class App extends Component {
         <Route path='/events' component={Events}/>
         <Route path='/login' component={Login}/>
         <Route path='/register' component={Register}/>
-        <Route path='/event' component={Event}/>
+        <Route path='/myEvents' component={MyEvents}/>
+        <Route path='/home' component={Home} />
       </div>
     );
   }
