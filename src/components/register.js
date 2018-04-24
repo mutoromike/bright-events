@@ -1,16 +1,60 @@
 import React, { Component } from 'react';
-
+import axios from 'axios';
+import { headers } from '../constants/common';
+import { ToastContainer, toast } from 'react-toastify';
+import {Link} from 'react-router-dom';
 class Register extends Component {
+    state = {
+        message: '',
+        form: {
+            username: "",
+            email: "",
+            password: "",
+            cpassword: ""
+        }
+    }
+    registerSubmit = (event) => {
+        event.preventDefault(); // prevent form auto-reloads
+        // console.log('Event: Form Submit', this.usernameInput.value);
+        //axios.get('https://bright-events-api.herokuapp.com/api/v2/auth/register')
+        axios({
+            method:'post',
+            url:'http://localhost:8000/api/v2/auth/register',
+            headers: headers,
+            data:this.state.form
+        }).then((resp) => {
+            toast.success(resp.data.message)
+            //resp.data
+        }).catch((err) => {
+            // err.response.data\
+            toast.error(err.response.data.message)
+        })
+    }
+
+    onChange = event => {
+        let myState = this.state;
+        myState.form[event.target.name] = event.target.value;
+        this.setState(myState);
+    }
   
   render() {
+      const { form } = this.state
     return (
       <div className="container page-content">
       <br />
         <br />
         <br />
         <br />
+        <br />
+        <br />
+        <br />
+        <ToastContainer 
+        hideProgressBar={true}
+        newestOnTop={true}
+        autoClose={6000}
+        />
           <div className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-              <div className="panel panel-login">
+              <div className="panel panel-login" id="heading">
                   <div className="panel-heading">
                       <div className="row">
                           <div className="col-xs-12">
@@ -23,18 +67,38 @@ class Register extends Component {
                   <div className="panel panel-body">
                       <div className="row">
                           <div className="col-lg-12">
-                              <form id="register-form" action="" method="post" role="form">
-                                  <div className="form-group">
-                                      <input type="text" ref="username" id="username" tabIndex="1" className="form-control" placeholder="Username" required />
+                              <form id="register-form" onSubmit = { this.registerSubmit } method="post" role="form">
+                                  <div className="input-group" style={{marginBottom: 16}}>
+                                  <span className="input-group-addon"><i className="glyphicon glyphicon-user"></i>
+                                    </span>
+                                      <input type="text" tabIndex="1"
+                                      name='username'
+                                      onChange = {this.onChange}
+                                      className="form-control" placeholder="Username" required />
                                   </div>
-                                  <div className="form-group">
-                                      <input type="email" ref="email" id="email" tabIndex="2" className="form-control" placeholder="Email Address" value="" required />
+                                  <div className="input-group" style={{marginBottom: 16}}>
+                                  <span className="input-group-addon"><i className="glyphicon glyphicon-envelope"></i>
+                                    </span>
+                                      <input type="email" tabIndex="2" className="form-control" 
+                                      name='email'
+                                      onChange = {this.onChange}
+                                      placeholder="Email Address" required />
                                   </div>
-                                  <div className="form-group">
-                                      <input type="password" ref="password" id="password" tabIndex="3" className="form-control" placeholder="Password" required />
+                                  <div className="input-group" style={{marginBottom: 16}}>
+                                  <span className="input-group-addon"><i className="glyphicon glyphicon-lock"></i>
+                                    </span>
+                                      <input type="password" tabIndex="3" className="form-control" 
+                                      name='password'
+                                      onChange = {this.onChange}
+                                      placeholder="Password" required />
                                   </div>
-                                  <div className="form-group">
-                                      <input type="password" ref="confirm-password" id="confirm-password" tabIndex="4" className="form-control" placeholder="Confirm Password"
+                                  <div className="input-group" style={{marginBottom: 16}}>
+                                  <span className="input-group-addon"><i className="glyphicon glyphicon-lock"></i>
+                                    </span>
+                                      <input type="password" tabIndex="4" className="form-control" 
+                                      name='cpassword'
+                                      onChange = {this.onChange}
+                                      placeholder="Confirm Password"
                                           required />
                                   </div>
                                   <div className="form-group">
@@ -45,7 +109,7 @@ class Register extends Component {
                                       </div>
                                   </div>
                                   <div className="form-group text-center">
-                              <a href="" className="forgot-password">Already have an account?Login</a>
+                                  <Link to="/login" className="page-scroll">Already have an account?Login</Link>
                           </div>
                               </form>
                               {/* Register form */}
