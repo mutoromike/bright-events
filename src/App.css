@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand');
+
 html, body {	
 	height: 100%;
   width: 100%;
@@ -29,7 +31,9 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Segoe UI', 'Open Sans', 'Helvetica Neue', 'sans-serif';
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  /* font-family: 'Segoe UI', 'Open Sans', 'Helvetica Neue', 'sans-serif'; */
 }
 p {
   font-size: 16px;
@@ -39,14 +43,14 @@ p {
 .navbar-default {
   background-color: white;
   border-color: rgba(34, 34, 34, 0.05);
-  font-family: 'Segoe UI', 'Open Sans', 'Helvetica Neue', 'sans-serif';
+  font-family: 'Quicksand', sans-serif;
   -webkit-transition: all 0.35s;
   -moz-transition: all 0.35s;
   transition: all 0.35s;
 }
 .navbar-default .navbar-header .navbar-brand{
   color:#F05F40;
-  font-family: 'Segoe UI', 'Open Sans', 'Helvetica Neue', 'sans-serif';
+  font-family: 'Quicksand', sans-serif;
   font-weight: 700;
   text-transform: uppercase;
 }
@@ -106,6 +110,23 @@ p {
 .navbar-login{
   width: 200px;
   padding: 5px 5px 0px 5px;
+}
+li {
+  font-family: 'Quicksand', sans-serif;
+}
+th {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+}
+td {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 300;
+}
+form {
+  font-family: 'Quicksand', sans-serif;
+}
+button {
+  font-family: 'Quicksand', sans-serif;
 }
 header {
   width: 100%;
@@ -188,7 +209,7 @@ footer {
 }
 /* Index register button*/
 #register {
-	font-family: 'Segoe UI', 'Open Sans', 'Helvetica Neue', 'sans-serif';
+	font-family: 'Quicksand', sans-serif;
   border: none;
   border-radius: 300px;
   font-weight: 700;
@@ -214,6 +235,10 @@ footer {
   top: 15%;
 }
 /*Register and login*/
+.panel-heading{
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+}
 .panel-login{
 	border-color: #ccc;
 	-webkit-box-shadow:0px 2px 3px 0px rgba(0,0,0,0.2);
@@ -312,4 +337,8 @@ footer {
 
 #heading {
   box-shadow: 4px 4px 10px #5a3f3f;
+}
+
+#headings {
+  box-shadow: 1px 1px 10px 1px #5a3f3f;
 }

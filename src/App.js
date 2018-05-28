@@ -1,29 +1,30 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch, Router } from 'react-router-dom';
 import './App.css';
-import MyEvents from './components/myEvents';
-import Header from './components/header';
-import Events from './components/events';
-import Register from './components/register';
-import Login from './components/login';
-import Home from './components/home';
+import MyEvents from './components/MyEvents/MyEvents';
+import Header from './components/Header/Header';
+import Events from './components/All/Events';
+import Register from './components/Register/Register';
+import Login from './components/Login/Login';
+import Home from './components/Home';
 // import Intro from './components/landing';
+import createHistory from 'history/createBrowserHistory';
 
-class App extends Component {
-  render() {
-    return (
-      <div>
+const history = createHistory();
+const App = () =>
+        <Router history={history}>
+        <div>
         < Header />
-        {/* < Intro /> */}
-        <Route path='/events' component={Events}/>
-        <Route path='/login' component={Login}/>
-        <Route path='/register' component={Register}/>
-        <Route path='/myEvents' component={MyEvents}/>
-        <Route path='/home' component={Home} />
-      </div>
-    );
-  }
-}
+        <Switch>
+          {/* < Intro /> */}
+          <Route path='/events' component={Events}/>
+          <Route path='/login' component={Login}/>
+          <Route path='/register' component={Register}/>
+          <Route path='/myEvents' component={MyEvents}/>
+          <Route path='/home' component={Home} />
+        </Switch>
+        </div>
+        </Router>;
+
 
 export default App;
-// A module can only contain one default export

@@ -34,6 +34,7 @@
         "MethodDefinition": false,
         "ClassDeclaration": false
       }
-    }]
+    }],
+    "import/extensions": 0
   }
 }
