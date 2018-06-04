@@ -14,6 +14,9 @@ class Events extends Component {
     this.state = {
       redirect: false,
       events: [],
+      categories: [],
+      locations: [],
+      originalEvents: []
     };
     this.getEvent = this.getEvent.bind(this);
     this.eventRsvp = this.eventRsvp.bind(this);
@@ -24,17 +27,34 @@ class Events extends Component {
         url: 'http://localhost:8000/api/v2/events/all',
         headers
       }).then((resp) => {
-        // console.log('these are new', resp.data);
+        const categories = resp.data.map(event => event.category);
+        const locations = resp.data.map(event => event.location);
+
         this.setState({
-          events: resp.data
+          events: resp.data,
+          categories,
+          locations,
+          originalEvents: resp.data
         });
       });
     }
+    filter = (type, query) => {
+      console.log('the type is ', type, query);
+      const { events } = this.state;
+      const orig = Object.assign([], this.state.originalEvents);
+      this.setState({ events: orig });
+      if (type === 'location') {
+        console.log('events is ', this.state.events);
+        const filteredEvents = events.filter(event => event.location === query);
+        this.setState({ events: filteredEvents });
+      }
+    }
+
     eventRsvp = (eventId) => {
       axios({
         method: 'post',
         url: `http://localhost:8000/api/v2/event/${eventId}/rsvp`,
-        headers,
+        headers: { Authorization: localStorage.getItem('Token') },
         data: this.state.form
       }).then((resp) => {
         toast.success(resp.data.message);
@@ -67,7 +87,7 @@ class Events extends Component {
     }
   // Now you can check if the component updates itself ()
     render() {
-      const { form } = this.state;
+      const { form, categories, locations } = this.state;
       // State Destructuring
 
 
@@ -89,16 +109,37 @@ class Events extends Component {
         />
         <div className="row container">
         <div className="col-md-12">
-
+          <div className="row">
             <div className="col-md-8">
             {this.state.events.map(event =>
             <Event key={event.id} event={event} onRsvp={this.eventRsvp}/>)}
+            </div>
+            <div className="col-md-4 second-child">
+            <div className="panel panel-success">
+            <div class="panel-heading">Filter Events</div>
+  <div className="panel-body">
+  <select className="form-control" onChange={e => this.filter('category', e.target.value)}>
+  <option selected>Filter By Category</option>
+  <option value="Service Provider">Service Provider</option>
+  {
+    categories.map((category, i) => <option key={i} value={category}>{category}</option>)
+  }
+</select>
+<br/>
+<select className="form-control" onChange={e => this.filter('location', e.target.value)}>
+  <option selected>Filter By Location</option>
+  {
+    locations.map((location, i) => <option key={i} value={location}>{location}</option>)
+  }
+</select>
+  </div>
+</div>
             </div>
         </div>
 
 
         </div>
-
+        </div>
         </div>
       );
     }

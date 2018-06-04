@@ -1,21 +1,16 @@
 import React, { Component } from 'react';
 import { Redirect, withRouter } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
 import { headers } from '../../constants/common';
 import LoggedInMenu from './../Login/LoggedInMenu';
 import VisitorMenu from './../Login/VisitorMenu';
 
-
+const header = { ...headers, Authorization: localStorage.getItem('Token') };
 class Header extends Component {
   state = {
     message: '',
-    redirect: false,
-    isLoggedIn: true
-  }
-  componentDidMount() {
-    this.loggedIn = (!!localStorage.getItem('Token'));
-    console.log('propare are ', this.props);
+    redirect: false
   }
 
 
@@ -23,57 +18,50 @@ class Header extends Component {
     axios({
       method: 'post',
       url: 'http://localhost:8000/api/v2/auth/logout',
-      headers
+      header
     }).then((resp) => {
-      // console.log(resp);
       toast.success(resp.data.message);
-      console.log('the local storager is now ', localStorage.getItem('Token'));
-      this.setState({ isLoggedIn: false }, () => {
-        localStorage.removeItem('Token');
-        localStorage.clear();
-        this.props.history.push('/login');
-      });
+      localStorage.removeItem('Token');
+      this.props.history.push('/login');
     }).catch((err) => {
-      // err.response.data\
-      toast.error(err.response.data.message);
+      // toast.error('An error occured!');
+      console.log('the error is ,', err);
     });
   }
 
   render() {
-    const isAuth = this.state.isLoggedIn;
+    const isAuth = (!!localStorage.getItem('Token'));
     if (this.state.redirect) {
       return (<Redirect to={'/header'}/>);
     }
     return (
-      // <div className="header clearfix">
         <nav className="navbar navbar-inverse navbar-fixed-top">
-        <div className="container-fluid navbar-left">
-        <ul className="nav navbar-nav navbar-center">
-          <li>
-            <h3 className="header" id="homeHeading"> Bright Events </h3>
-          </li>
-        </ul>
-        </div>
-        <form className="navbar-form navbar-left" action="">
-          <div className="input-group">
-            <input type="text" className="form-control" placeholder="Search event" />
-              <div className="input-group-btn">
-                <button className="btn btn-default" type="submit">
-                  <i className="glyphicon glyphicon-search"></i>
-                </button>
-              </div>
-          </div>
-        </form>
-      <div className="container-fluid navbar-right">
+        <div className="container-fluid">
         <div className="navbar-header">
-          <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navigation" aria-expanded="false">
-            <span className="sr-only">Toggle nav</span>
-            <span className="icon-bar"></span>
-            <span className="icon-bar"></span>
-            <span className="icon-bar"></span>
-          </button>
+            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navigation" aria-expanded="false">
+              <span className="sr-only navbar-right">Toggle nav</span>
+              <span className="icon-bar"></span>
+              <span className="icon-bar"></span>
+              <span className="icon-bar"></span>
+            </button>
+            <a className="navbar-brand">Bright Events</a>
         </div>
-              <div className="collapse navbar-collapse" id="main-navigation">
+        <ToastContainer
+        hideProgressBar={true}
+        newestOnTop={true}
+        autoClose={3000}
+        />
+        <div className="navbar-right navbar-collapse" id="main-navigation">
+        <form className="navbar-form navbar-left" action="">
+        <div className="col-lg-12">
+    <div className="input-group">
+      <input type="text" className="form-control" aria-label="..." placeholder="Search"/>
+      <div className="input-group-btn">
+                  <button className="btn btn-primary" type="submit"><i className="glyphicon glyphicon-search"></i></button>
+              </div>
+      </div>
+      </div>
+        </form>
               {
                 isAuth ? (
                   <LoggedInMenu onLogout = { this.logoutUser}/>
@@ -84,10 +72,11 @@ class Header extends Component {
               </div>
         </div>
         </nav>
-    // </div>
     );
   }
 }
 
 
 export default withRouter(Header);
+
+// withRouter has been used because "push" has been called

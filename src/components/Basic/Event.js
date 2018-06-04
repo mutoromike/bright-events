@@ -14,7 +14,7 @@ const Event = ({ event, onRsvp }) =>
 
 <table className="table table-hover" id="activity-table">
     <thead>
-        <tr>
+        <tr className="row">
 
             <th>Category</th>
             <th>Venue</th>
@@ -22,18 +22,18 @@ const Event = ({ event, onRsvp }) =>
         </tr>
     </thead>
     <tbody>
-            <tr>
-                <td>
+            <tr className="row">
+                <td className="col-md-4 col-xs-12">
                     <div className="form-group">
                         {event.category}
                     </div>
                 </td>
-                <td>
+                <td className="col-md-4 col-xs-12">
                     <div className="form-group">
                         {event.location}
                     </div>
                 </td>
-                <td>
+                <td className="col-md-4 col-xs-12">
                     <div className="form-group">
                         {event.date}
                     </div>
@@ -45,31 +45,31 @@ const Event = ({ event, onRsvp }) =>
 </table>
 <table className="table table-hover" id="activity-table">
     <tbody>
-    <tr>
-        <td>
-            <div className="form-group" style={{ width: 200 }}>
+    <tr className="row">
+        <td className="col-md-4 col-xs-12">
+            <div className="form-group">
             <h5>
                 More Details
             </h5>
                 {event.description}
             </div>
             </td>
-            <td>
-                <div style={{ width: 400, height: 250, paddingRight: 0, float: 'right' }}>
-                <EventMap coordinates = {defaultCoordinates} />
+            <td className="col-md-8 hidden-xs">
+                <div style={{ width: '25.000em', height: '15.625em', paddingRight: 0 }}>
+                    <EventMap coordinates = {defaultCoordinates} />
                 </div>
             </td>
         </tr>
-        <tr>
-            <td>
+        <tr className="row">
+            <td className="col-md-8 col-xs-12">
                  Share
-                &nbsp;&nbsp;&nbsp; <img style={{ height: 50, width: 75 }} alt="facebook" src={facebook}/>
-                <img style={{ height: 28, width: 28 }} alt="linkedIn" src={linkedIn}/>
+                <img style={{ height: '3.125em', width: '4.688em' }} alt="facebook" src={facebook}/>
+                <img style={{ height: '1.750em', width: '1.750em' }} alt="linkedIn" src={linkedIn}/>
             </td>
-            <td>
+            <td className="col-md-4 col-xs-12"j>
                 <h5>
-                <a onClick = {() => onRsvp(event.id)}>
-                <button type="button" className="btn btn-primary" style={{ float: 'right' }}>RSVP</button>
+                    <a onClick = {() => onRsvp(event.id)}>
+                    <button type="button" className="btn btn-primary" style={{ float: 'right' }}>RSVP</button>
                 </a>
                 </h5>
 

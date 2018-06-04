@@ -17,8 +17,6 @@ class Login extends Component {
 
     loginSubmit = (event) => {
       event.preventDefault(); // prevent form auto-reloads
-      // console.log('Event: Form Submit', this.usernameInput.value);
-      // axios.get('https://bright-events-api.herokuapp.com/api/v2/auth/register')
       axios({
         method: 'post',
         url: 'http://localhost:8000/api/v2/auth/login',
@@ -28,15 +26,11 @@ class Login extends Component {
         toast.success(resp.data.message);
         localStorage.setItem('Token', resp.data.access_token);
         if (resp.data.access_token) {
-        //   console.log('You are logged in!!');
-          this.setState({ redirect: true });
           this.props.history.replace('/myEvents');
         } else {
           this.setState({ redirect: false });
-        //   console.log('Login you idiot!');
         }
       }).catch((err) => {
-        // err.response.data\
         toast.error(err.response.data.message);
       });
     }
@@ -48,9 +42,8 @@ class Login extends Component {
     }
     render() {
       const { form } = this.state;
-
-      if (this.state.redirect) {
-        // return (<Redirect to={'/myEvents'}/>);
+      if (localStorage.getItem('Token')) {
+        return (<Redirect to={'/myEvents'}/>);
       }
       return (
         <div className="container page-content">

@@ -198,6 +198,10 @@ footer {
     overflow:hidden;
 }
 
+.heading {
+  font-family: 'Quicksand', sans-serif;
+}
+
 #footer-wrapper {
 	width: 100%;
 	height: 50px;
@@ -341,4 +345,10 @@ footer {
 
 #headings {
   box-shadow: 1px 1px 10px 1px #5a3f3f;
+}
+.headcontent {
+  color: white;
+}
+.second-child {
+  position: center;
 }

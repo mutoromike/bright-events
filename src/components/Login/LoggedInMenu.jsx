@@ -17,7 +17,7 @@ const LoggedInMenu = ({ onLogout }) =>
     </Link>
 <ul className="dropdown-menu">
   <li><Link to="myEvents" >Dashboard</Link></li>
-  <li><a>Profile</a></li>
+  <li><Link to="profile" >Profile</Link></li>
   <li><a onClick={() => onLogout()}>Logout</a></li>
 </ul>
 </li>

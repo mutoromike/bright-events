@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom';
 import { headers } from '../../constants/common';
 import Event from './../Created/Event';
 
-
+const head = { 'Content-Type': 'application/json', Authorization: localStorage.getItem('Token') };
 class MyEvents extends Component {
   constructor(props) {
     super(props);
@@ -25,14 +25,13 @@ class MyEvents extends Component {
     this.getEvent = this.getEvent.bind(this);
     this.deleteEvent = this.deleteEvent.bind(this);
   }
+
     createEvent = (event) => {
       event.preventDefault(); // prevent form auto-reloads
-      // console.log('Event: Form Submit', this.usernameInput.value);
-      // axios.get('https://bright-events-api.herokuapp.com/api/v2/auth/register')
       axios({
         method: 'post',
         url: 'http://localhost:8000/api/v2/events',
-        headers,
+        headers: head,
         data: this.state.form
       }).then((resp) => {
         toast.success(resp.data.message);
@@ -41,11 +40,12 @@ class MyEvents extends Component {
         toast.error(err.response.data.message);
       });
     }
+
     deleteEvent = (eventId) => {
       axios({
         method: 'delete',
         url: `http://localhost:8000/api/v2/events/${eventId}`,
-        headers,
+        headers: head,
         data: this.state.form
       }).then((resp) => {
         toast.success(resp.data.message);
@@ -54,39 +54,36 @@ class MyEvents extends Component {
         toast.error(err.response.data.message);
       });
     }
+
     getEvent = () => {
       axios({
         method: 'get',
         url: 'http://localhost:8000/api/v2/events',
-        headers
+        headers: head
       }).then((resp) => {
-        // console.log('these are new', resp.data);
         this.setState({
           events: resp.data
         });
+      }).catch((err) => {
+        toast.error('Please log in!');
       });
     }
+
     onChange = (event) => {
       const myState = this.state;
       myState.form[event.target.name] = event.target.value;
       this.setState(myState);
     }
+
     componentWillMount() {
       this.getEvent();
     }
-    // componentDidMount() {
-    //   this.getEvent();
-    // }
-  // Now you can check if the component updates itself ()
+
     render() {
       const { form } = this.state;
-      // State Destructuring
-
-
       if (this.state.redirect) {
         return (<Redirect to={'/login'}/>);
       }
-
 
       return (
         <div className="container page-content">
@@ -102,17 +99,18 @@ class MyEvents extends Component {
         <div className="row container">
         <div className="col-md-12">
 
+        <div className="row">
+
+            {/* <div className="col-md-8 col-xs-12 col-sm-12"> */}
             <div className="col-md-8">
+
             {this.state.events.map(event =>
-            <Event key={event.id} event={event} onDelete={this.deleteEvent}/>)}
+            <Event key={event.id} event={event} onDelete={this.deleteEvent}
+            />)}
             </div>
 
 
             <div className="col-md-4">
-            <div className="col-md-3">
-                    {/* panel panel-success */}
-                            {/* Button trigger modal */}
-                            {/* Create new event */}
                         <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#flipFlop">
                         Create New
                         </button>
@@ -192,10 +190,9 @@ class MyEvents extends Component {
            </div>
         </div>
 
-
+              </div>
         </div>
 
-        </div>
       );
     }
 }

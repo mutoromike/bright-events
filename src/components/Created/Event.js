@@ -1,159 +1,178 @@
-import React from 'react';
+import React, { Component } from 'react';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 import facebook from '../../assets/img/facebook.png';
 import linkedIn from '../../assets/img/linkedIn.png';
+import { headers } from '../../constants/common';
 import EventMap from './../Map/EventMap';
+import EditEventModal from './EditorModal';
 
+// const header = { ...headers, Authorization: localStorage.getItem('Token') };
+const head = { 'Content-Type': 'application/json', Authorization: localStorage.getItem('Token') };
 const defaultCoordinates = { lat: -1.2195470, lng: 36.8862530 };
-const Event = ({ event, onDelete }) =>
-<div className="panel panel-success" id="heading">
-<div className="panel-heading">
-    <h2 className="panel-title">{event.name}</h2>
-</div>
-{/* panel-heading */}
+class Event extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showModal: false,
+      message: '',
+      form: {
+        name: props.name,
+        category: props.category,
+        location: props.location,
+        date: props.date,
+        description: props.description
+      },
+      event: []
+    };
+    this.inputChanged = this.inputChanged.bind(this);
+    this.onModalClose = this.onModalClose.bind(this);
+    this.editEvent = this.editEvent.bind(this);
+  }
+
+  editEvent = (e, event) => {
+    e.preventDefault(); // prevent form auto-reloads
+    axios({
+      method: 'put',
+      url: `http://localhost:8000/api/v2/events/${event.id}`,
+      headers: head,
+      data: event
+    }).then((resp) => {
+      toast.success(resp.data.message);
+    }).catch((err) => {
+      console.log(err);
+      toast.error(err.response.data.message);
+    });
+  }
+
+  inputChanged(e) {
+    const { value, name } = e.target;
+    this.setState({ form: Object.assign({}, ...this.state.form, { [name]: value }) });
+  }
+
+  onModalClose() {
+    this.setState({ showModal: false });
+  }
+  render() {
+    const {
+      event, onDelete
+    } = this.props;
+    console.log('the event is ,', event);
+    return (
+        <div className="panel panel-success" id="heading">
+        <div className="panel-heading">
+            <h2 className="panel-title">{event.name}</h2>
+        </div>
+        {/* panel-heading */}
 
 
-<table className="table table-hover" id="activity-table">
-    <thead>
-        <tr>
+        <table className="table table-hover" id="activity-table">
+            <thead>
+                <tr className="row">
+                    <th>Category</th>
+                    <th>Venue</th>
+                    <th>Happening on</th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr className="row">
+                        <td className="col-md-4 col-xs-12">
+                            <div className="form-group">
+                                {event.category}
+                            </div>
+                        </td>
+                        <td className="col-md-4 col-xs-12">
+                            <div className="form-group">
+                                {event.location}
+                            </div>
+                        </td>
+                        <td className="col-md-4 col-xs-12">
+                            <div className="form-group">
+                                {event.date}
+                            </div>
+                        </td>
+                    </tr>
 
-            <th>Category</th>
-            <th>Venue</th>
-            <th>Happening on</th>
-        </tr>
-    </thead>
-    <tbody>
-            <tr>
-                <td>
+            </tbody>
+            </table>
+        <table className="table table-hover" id="activity-table">
+            <tbody>
+            <tr className="row">
+                <td className="col-md-4 col-xs-12">
                     <div className="form-group">
-                        {event.category}
+                    <h5>
+                        More Details
+                    </h5>
+                        {event.description}
                     </div>
                 </td>
-                <td>
-                    <div className="form-group">
-                        {event.location}
-                    </div>
+                    <td className="col-md-8 hidden-xs">
+                        <div style={{ width: '25.000em', height: '15.625em', paddingRight: 0 }}>
+                        <EventMap coordinates = {defaultCoordinates} />
+                        </div>
+                    </td>
+            </tr>
+            <tr className="row">
+                <td className="col-md-8 col-xs-12">
+                    Share
+                    <img style={{ height: '3.125em', width: '4.688em' }} alt="facebook" src={facebook}/>
+                    <img style={{ height: '1.750em', width: '1.750em' }} alt="linkedIn" src={linkedIn}/>
                 </td>
-                <td>
-                    <div className="form-group">
-                        {event.date}
-                    </div>
+                <td className="col-md-4 col-xs-12">
+                    <h5>
+                    {/* Button trigger modal */}
+                        {/* Edit icon */}
+                        <i
+                        onClick={() => this.setState({ showModal: true })}
+                        className="glyphicon glyphicon-edit pull-right"
+                        />
+                        {/* The modal  */}
+                        {
+                            this.state.showModal &&
+                            <EditEventModal onClose={this.onModalClose} event={event}
+                            key={event.id} onEdit={this.editEvent}/>
+                        }
+
+
+                        <div className="iconSize">
+                        <a>
+                        <i className="glyphicon glyphicon-trash pull-right" data-toggle="modal" data-target="#deleteEvent"></i>
+                        </a>
+                        </div>
+                        <div className="modal fade" id="deleteEvent" tabIndex="-1" role="dialog" aria-labelledby="deleteEventLabel" aria-hidden="true">
+                        <div className="modal-dialog" role="document">
+                            <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="deleteEventLabel">Delete Event</h5>
+                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div className="modal-body">
+                                Are you sure you wish to delete this event?
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <a onClick = {() => onDelete(event.id)}>
+                                <button type="button" className="btn btn-danger" data-dismiss="modal">Delete</button>
+                                </a>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+
+
+                    </h5>
+
                 </td>
             </tr>
+            </tbody>
+        </table>
 
-
-    </tbody>
-</table>
-<table className="table table-hover" id="activity-table">
-    <tbody>
-    <tr>
-        <td>
-            <div className="form-group" style={{ width: 200 }}>
-            <h5>
-                More Details
-            </h5>
-                {event.description}
-            </div>
-            </td>
-            <td>
-                <div style={{ width: 400, height: 250, paddingRight: 0 }}>
-                <EventMap coordinates = {defaultCoordinates} />
                 </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                 Share
-                &nbsp;&nbsp;&nbsp; <img style={{ height: 50, width: 75 }} alt="facebook" src={facebook}/>
-                <img style={{ height: 28, width: 28 }} alt="linkedIn" src={linkedIn}/>
-            </td>
-            <td>
-                <h5>
-                {/* Button trigger modal */}
-                    {/* Edit icon */}
-                    <i className="glyphicon glyphicon-edit pull-right" data-toggle="modal" data-target="#flipFlap"></i>
-
-                    {/* The modal  */}
-                    <div className="modal fade" id="flipFlap" tabIndex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-                    <div className="modal-dialog" role="document">
-                    <div className="modal-content">
-                    <div className="modal-header">
-                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 className="modal-title" id="modalLabel">Edit Event</h4>
-                    </div>
-                    <div className="modal-body">
-
-                    {/* panel-heading */}
-                    <div style={{ paddingTop: 30 }} className="panel-body">
-                    <form id="loginform" onSubmit = { this.loginSubmit } method="post" className="form-horizontal">
-
-                        <div style={{ marginBottom: 25 }} className="input-group ">
-                            <span className="input-group-addon">
-                            </span>
-                            <input type="text" name='name' className="form-control"
-                            onChange = {this.onChange} placeholder="Event Name" required />
-                        </div>
-
-                        <div style={{ marginBottom: 25 }} className="input-group ">
-                            <span className="input-group-addon">
-                            </span>
-                            <input type="text" name='category' className="form-control"
-                            onChange = {this.onChange} placeholder="Category" required />
-                        </div>
-
-                        <div style={{ marginBottom: 25 }} className="input-group ">
-                            <span className="input-group-addon">
-                            </span>
-                            <input type="text" name='location' className="form-control"
-                            onChange = {this.onChange} placeholder="Location" required />
-                        </div>
-
-                        <div style={{ marginBottom: 25 }} className="input-group ">
-                            <span className="input-group-addon">
-                            </span>
-                            <input type="date" name='date' className="form-control"
-                            onChange = {this.onChange} placeholder="Date" required />
-                        </div>
-
-                        <div style={{ marginBottom: 25 }} className="input-group ">
-                            <div className="input-group-addon">
-                            </div>
-                            <textarea type="text" name='description' className="form-control"
-                            onChange = {this.onChange} placeholder="Description" required >
-                            </textarea>
-                        </div>
-
-
-                        <div className="form-group">
-                            <div className="row">
-                                <div className="col-sm-8 col-sm-offset-4">
-                                    <input type="submit" className="btn btn-lg" value="Save"/>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                    </div>
-                    <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                    </div>
-                    </div>
-                    </div>
-                <div className="iconSize">
-                <a onClick = {() => onDelete(event.id)}>
-                    <i className="glyphicon glyphicon-trash pull-right"></i>
-                    </a>
-                </div>
-                </h5>
-
-            </td>
-        </tr>
-    </tbody>
-</table>
-
-</div>;
+    );
+  }
+}
 
 
 export default Event;
