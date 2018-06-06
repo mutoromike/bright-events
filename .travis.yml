@@ -7,8 +7,7 @@ install:
  - npm install
 
 script:
- - npm run test
+ - npm test -- -u --coverage
 
 after_success:
- - COVERALLS_REPO_TOKEN=$coveralls_repo_token
  - coveralls < coverage/lcov.info
