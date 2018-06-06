@@ -12,4 +12,10 @@ describe('myEvents', () => {
     </BrowserRouter>, div);
     ReactDOM.unmountComponentAtNode(div);
   });
+
+  it('should have a `Reset Password` button', () => {
+    const wrapper = shallow(<Profile />);
+    expect(wrapper.containsMatchingElement(<input className="form-control btn btn-primary"
+    value="Change Password"/>)).toBe(true);
+  });
 });
