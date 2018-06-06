@@ -57,7 +57,7 @@ class Profile extends Component {
                               <div className="panel-heading">
                                   <h2 className="panel-title"> Welcome: </h2>
                               </div>
-                              <div className="panel-body panel-default" Style={{ borderRadius: 0 }}>
+                              <div className="panel-body panel-default" style={{ borderRadius: 0 }}>
                               <p> Here you get to reset your password when you feel like...</p>
 
 

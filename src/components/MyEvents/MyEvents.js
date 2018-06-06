@@ -67,7 +67,6 @@ class MyEvents extends Component {
           events: resp.data
         });
       }).catch((err) => {
-        console.log('the error is ,', err);
         toast.error('Please log in!');
       });
     }
