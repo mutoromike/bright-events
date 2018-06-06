@@ -33,7 +33,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "node --harmony_proxies node_modules/.bin/jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "test": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "eject": "react-scripts eject",
     "coverage": "nyc report --temp-directory=coverage --reporter=text-lcov | coveralls"
   },
