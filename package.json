@@ -33,8 +33,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "test": "react-scripts test --env=jsdom --coverage",
+    "eject": "react-scripts eject",
+    "coverage": "nyc report --coverage | coveralls"
   },
   "devDependencies": {
     "eslint": "^4.19.1"
