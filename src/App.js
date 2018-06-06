@@ -8,6 +8,7 @@ import Register from './components/Register/Register';
 import Login from './components/Login/Login';
 import Home from './components/Home/Home';
 import Profile from './components/Profile/Profile';
+import PrivateRoute from './components/Private/Private';
 // import Intro from './components/landing';
 import createHistory from 'history/createBrowserHistory';
 
@@ -20,9 +21,9 @@ const App = () =>
           <Route path='/events' component={Events}/>
           <Route path='/login' component={Login}/>
           <Route path='/register' component={Register}/>
-          <Route path='/myEvents' component={MyEvents}/>
+          <PrivateRoute path='/myEvents' component={MyEvents}/>
           <Route path='/home' component={Home} />
-          <Route path='/profile' component={Profile} />
+          <PrivateRoute path='/profile' component={Profile} />
         </Switch>
         </div>
         </Router>;

@@ -7,8 +7,7 @@ import { headers } from '../../constants/common';
 import EventMap from './../Map/EventMap';
 import EditEventModal from './EditorModal';
 
-// const header = { ...headers, Authorization: localStorage.getItem('Token') };
-const head = { 'Content-Type': 'application/json', Authorization: localStorage.getItem('Token') };
+
 const defaultCoordinates = { lat: -1.2195470, lng: 36.8862530 };
 class Event extends Component {
   constructor(props) {
@@ -31,6 +30,7 @@ class Event extends Component {
   }
 
   editEvent = (e, event) => {
+    const head = { ...headers, Authorization: localStorage.getItem('Token') };
     e.preventDefault(); // prevent form auto-reloads
     axios({
       method: 'put',
@@ -38,7 +38,9 @@ class Event extends Component {
       headers: head,
       data: event
     }).then((resp) => {
+      this.onModalClose();
       toast.success(resp.data.message);
+      this.props.onGet();
     }).catch((err) => {
       console.log(err);
       toast.error(err.response.data.message);
@@ -50,6 +52,7 @@ class Event extends Component {
     this.setState({ form: Object.assign({}, ...this.state.form, { [name]: value }) });
   }
 
+
   onModalClose() {
     this.setState({ showModal: false });
   }
@@ -57,7 +60,6 @@ class Event extends Component {
     const {
       event, onDelete
     } = this.props;
-    console.log('the event is ,', event);
     return (
         <div className="panel panel-success" id="heading">
         <div className="panel-heading">

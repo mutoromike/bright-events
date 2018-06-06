@@ -6,7 +6,6 @@ import { Redirect } from 'react-router-dom';
 import { headers } from '../../constants/common';
 import Event from './../Created/Event';
 
-const head = { 'Content-Type': 'application/json', Authorization: localStorage.getItem('Token') };
 class MyEvents extends Component {
   constructor(props) {
     super(props);
@@ -27,6 +26,7 @@ class MyEvents extends Component {
   }
 
     createEvent = (event) => {
+      const head = { ...headers, Authorization: localStorage.getItem('Token') };
       event.preventDefault(); // prevent form auto-reloads
       axios({
         method: 'post',
@@ -42,6 +42,7 @@ class MyEvents extends Component {
     }
 
     deleteEvent = (eventId) => {
+      const head = { ...headers, Authorization: localStorage.getItem('Token') };
       axios({
         method: 'delete',
         url: `http://localhost:8000/api/v2/events/${eventId}`,
@@ -56,6 +57,7 @@ class MyEvents extends Component {
     }
 
     getEvent = () => {
+      const head = { ...headers, Authorization: localStorage.getItem('Token') };
       axios({
         method: 'get',
         url: 'http://localhost:8000/api/v2/events',
@@ -65,6 +67,7 @@ class MyEvents extends Component {
           events: resp.data
         });
       }).catch((err) => {
+        console.log('the error is ,', err);
         toast.error('Please log in!');
       });
     }
@@ -106,7 +109,7 @@ class MyEvents extends Component {
 
             {this.state.events.map(event =>
             <Event key={event.id} event={event} onDelete={this.deleteEvent}
-            />)}
+            onGet={this.getEvent}/>)}
             </div>
 
 

@@ -6,7 +6,7 @@ import { headers } from '../../constants/common';
 import LoggedInMenu from './../Login/LoggedInMenu';
 import VisitorMenu from './../Login/VisitorMenu';
 
-const header = { ...headers, Authorization: localStorage.getItem('Token') };
+
 class Header extends Component {
   state = {
     message: '',
@@ -15,17 +15,18 @@ class Header extends Component {
 
 
   logoutUser = (event) => {
+    const head = { ...headers, Authorization: localStorage.getItem('Token') };
     axios({
       method: 'post',
       url: 'http://localhost:8000/api/v2/auth/logout',
-      header
+      headers: head
     }).then((resp) => {
       toast.success(resp.data.message);
+      console.log('the message is: ', resp.data.message);
       localStorage.removeItem('Token');
       this.props.history.push('/login');
     }).catch((err) => {
-      // toast.error('An error occured!');
-      console.log('the error is ,', err);
+      toast.error('An error occured!');
     });
   }
 
@@ -54,12 +55,7 @@ class Header extends Component {
         <div className="navbar-right navbar-collapse" id="main-navigation">
         <form className="navbar-form navbar-left" action="">
         <div className="col-lg-12">
-    <div className="input-group">
-      <input type="text" className="form-control" aria-label="..." placeholder="Search"/>
-      <div className="input-group-btn">
-                  <button className="btn btn-primary" type="submit"><i className="glyphicon glyphicon-search"></i></button>
-              </div>
-      </div>
+
       </div>
         </form>
               {

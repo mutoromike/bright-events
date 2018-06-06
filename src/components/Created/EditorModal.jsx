@@ -10,6 +10,7 @@ class EditEventModal extends Component {
     this.onClose = this.onClose.bind(this);
     this.inputChanged = this.inputChanged.bind(this);
     console.log('hhhh', props.event.id);
+    console.log('the props are: ', props);
     this.state = {
       open: true,
       form: {
