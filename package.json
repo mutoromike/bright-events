@@ -16,6 +16,7 @@
     "jquery": "^3.0.0",
     "mdbreact": "^4.2.0",
     "npm": "^5.7.1",
+    "nyc": "^12.0.2",
     "react": "^16.2.0",
     "react-addons-test-utils": "^15.6.2",
     "react-bootstrap": "^0.32.1",
@@ -33,7 +34,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "devDependencies": {
     "eslint": "^4.19.1"
