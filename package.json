@@ -33,7 +33,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
+    "test": "jest --coverage --coverageReporters=text-lcov | coveralls",
     "eject": "react-scripts eject",
     "coverage": "nyc report --temp-directory=coverage --reporter=text-lcov | coveralls"
   },
