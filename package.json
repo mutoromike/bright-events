@@ -35,7 +35,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc report --temp-directory=coverage --reporter=text-lcov | coveralls"
   },
   "devDependencies": {
     "eslint": "^4.19.1"
