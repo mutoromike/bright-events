@@ -18,6 +18,7 @@ const App = () =>
         <div>
         < Header />
         <Switch>
+          <Route exact path='/' component={Home} />
           <Route path='/events' component={Events}/>
           <Route path='/login' component={Login}/>
           <Route path='/register' component={Register}/>

@@ -26,7 +26,6 @@ class Profile extends Component {
         toast.success(resp.data.message);
         // resp.data
       }).catch((err) => {
-        console.log('the error is:', err);
         toast.error(err.response.data.message);
       });
     }
@@ -39,10 +38,7 @@ class Profile extends Component {
       render() {
         const { form } = this.state;
         return (
-                <div className="header">
-                  <br />
-                  <br />
-                  <br />
+                <div className="header" style={{ marginTop: 100 }}>
                   <ToastContainer
                   hideProgressBar={true}
                   newestOnTop={true}

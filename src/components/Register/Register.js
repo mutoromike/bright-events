@@ -16,8 +16,6 @@ class Register extends Component {
     }
     registerSubmit = (event) => {
       event.preventDefault(); // prevent form auto-reloads
-      // console.log('Event: Form Submit', this.usernameInput.value);
-      // axios.get('https://bright-events-api.herokuapp.com/api/v2/auth/register')
       axios({
         method: 'post',
         url: 'http://localhost:8000/api/v2/auth/register',

@@ -46,11 +46,7 @@ class Login extends Component {
         return (<Redirect to={'/myEvents'}/>);
       }
       return (
-        <div className="container page-content">
-        <br />
-        <br />
-        <br />
-        <br />
+        <div className="container page-content" style={{ marginTop: 100 }}>
         <ToastContainer
         hideProgressBar={true}
         newestOnTop={true}
@@ -96,13 +92,9 @@ class Login extends Component {
                             </div>
                         </form>
                     </div>
-                    {/* panel-body */}
                 </div>
-                {/* panel panel-login */}
             </div>
-            {/* loginbox */}
         </div>
-        // {/* container */}
       );
     }
 }

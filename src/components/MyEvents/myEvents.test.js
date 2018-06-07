@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { shallow } from 'enzyme';
 import MyEvents from './MyEvents';
-import Event from './../Created/Event';
 
 describe('myEvents', () => {
   it('component renders without crashing', () => {

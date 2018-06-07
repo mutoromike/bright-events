@@ -10,7 +10,6 @@ import Event from './../Basic/Event';
 class Events extends Component {
   constructor(props) {
     super(props);
-    this.onClick = this.onClick.bind(this);
     this.state = {
       redirect: false,
       events: [],
@@ -39,8 +38,6 @@ class Events extends Component {
       });
     }
     filter = (type, query) => {
-      console.log('type', type);
-
       if (query === 'Filter By Location' || query === 'Filter By Category') {
         this.setState({
           events: [...this.state.originalEvents]
@@ -84,19 +81,7 @@ class Events extends Component {
         toast.error(err.response.data.message);
       });
     }
-    onClick() {
-      this.dialog.show({
-        body: 'Create Event',
-        prompt: Dialog.TextPrompt({ placeholder: 'Event Name' }),
-        actions: [
-          Dialog.CancelAction(),
-          Dialog.OKAction((dialog) => {
-            // const result = dialog.value
-            // action(`okay! result is "${result}".`)()
-          })
-        ]
-      });
-    }
+
     onChange = (event) => {
       const myState = this.state;
       myState.form[event.target.name] = event.target.value;
@@ -108,23 +93,16 @@ class Events extends Component {
       myState.event.target.name = event.target.value;
       this.setState(myState);
     }
-
     componentDidMount() {
       this.getEvent();
     }
-  // Now you can check if the component updates itself ()
     render() {
-      const {
-        form, categories, locations, events
-      } = this.state;
+      const { events } = this.state;
       // State Destructuring
-
-      console.log('current events', events);
 
       if (this.state.redirect) {
         return (<Redirect to={'/login'}/>);
       }
-
 
       return (
         <div className="container page-content">
@@ -146,7 +124,7 @@ class Events extends Component {
             </div>
             <div className="col-md-4 second-child">
             <div className="panel panel-success">
-            <div class="panel-heading">Filter Events</div>
+            <div className="panel-heading">Filter Events</div>
             <div className="panel-body">
             <div className="input-group">
               <input type="text" className="form-control" aria-label="..." placeholder="Search" onChange={ this.onSearchChange } />

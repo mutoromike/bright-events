@@ -66,7 +66,7 @@ const Event = ({ event, onRsvp }) =>
                 <img style={{ height: '3.125em', width: '4.688em' }} alt="facebook" src={facebook}/>
                 <img style={{ height: '1.750em', width: '1.750em' }} alt="linkedIn" src={linkedIn}/>
             </td>
-            <td className="col-md-4 col-xs-12"j>
+            <td className="col-md-4 col-xs-12">
                 <h5>
                     <a onClick = {() => onRsvp(event.id)}>
                     <button type="button" className="btn btn-primary" style={{ float: 'right' }}>RSVP</button>

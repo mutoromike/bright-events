@@ -9,8 +9,6 @@ class EditEventModal extends Component {
     super(props);
     this.onClose = this.onClose.bind(this);
     this.inputChanged = this.inputChanged.bind(this);
-    console.log('hhhh', props.event.id);
-    console.log('the props are: ', props);
     this.state = {
       open: true,
       form: {
@@ -31,7 +29,7 @@ class EditEventModal extends Component {
     form.location = event.location;
     form.date = event.date;
     form.description = event.description;
-    this.setState(form, () => console.log('the updated event is ', form));
+    this.setState(form);
   }
   onClose() {
     this.setState({ open: false });
@@ -95,7 +93,6 @@ class EditEventModal extends Component {
     <div className="row">
         <div className="col-sm-8 col-sm-offset-4">
             <a onClick = {e => onEdit(e, form)}>
-            {/* this.editEvent(event, event.id) */}
             <input type="submit" className="btn btn-success" value="Save"/>
             </a>
         </div>

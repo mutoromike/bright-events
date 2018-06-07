@@ -6,6 +6,7 @@ import linkedIn from '../../assets/img/linkedIn.png';
 import { headers } from '../../constants/common';
 import EventMap from './../Map/EventMap';
 import EditEventModal from './EditorModal';
+import VisitorList from './VisitorList';
 
 
 const defaultCoordinates = { lat: -1.2195470, lng: 36.8862530 };
@@ -14,6 +15,7 @@ class Event extends Component {
     super(props);
     this.state = {
       showModal: false,
+      showRsvpModal: false,
       message: '',
       form: {
         name: props.name,
@@ -22,11 +24,13 @@ class Event extends Component {
         date: props.date,
         description: props.description
       },
-      event: []
+      event: [],
+      users: []
     };
     this.inputChanged = this.inputChanged.bind(this);
     this.onModalClose = this.onModalClose.bind(this);
     this.editEvent = this.editEvent.bind(this);
+    this.getRsvpList = this.getRsvpList.bind(this);
   }
 
   editEvent = (e, event) => {
@@ -42,8 +46,22 @@ class Event extends Component {
       toast.success(resp.data.message);
       this.props.onGet();
     }).catch((err) => {
-      console.log(err);
       toast.error(err.response.data.message);
+    });
+  }
+
+  getRsvpList(eventId) {
+    const head = { ...headers, Authorization: localStorage.getItem('Token') };
+    axios({
+      method: 'get',
+      url: `http://localhost:8000/api/v2/event/${eventId}/rsvp`,
+      headers: head
+    }).then((resp) => {
+      this.setState({
+        users: [...resp.data]
+      });
+    }).catch((err) => {
+      toast.error('Please log in!');
     });
   }
 
@@ -55,6 +73,7 @@ class Event extends Component {
 
   onModalClose() {
     this.setState({ showModal: false });
+    this.setState({ showRsvpModal: false });
   }
   render() {
     const {
@@ -122,23 +141,38 @@ class Event extends Component {
                 </td>
                 <td className="col-md-4 col-xs-12">
                     <h5>
+                        <div>
+                    <input type="submit" ref="register-submit" id="password-reset-submit"
+                    className="col-md-3 btn-primary pull-right" value="RSVP List" style={{ borderRadius: 3 }}
+                    onClick={() => {
+                        this.setState({ showRsvpModal: true });
+                        this.getRsvpList(event.id);
+                        }}/>
+                    </div>
+                    {
+                            this.state.showRsvpModal &&
+                            <VisitorList onClose={this.onModalClose} event={event}
+                            key={event.id} users={this.state.users}/>
+
+                        }
                     {/* Button trigger modal */}
                         {/* Edit icon */}
                         <i
                         onClick={() => this.setState({ showModal: true })}
-                        className="glyphicon glyphicon-edit pull-right"
+                        className="glyphicon glyphicon-edit pull-right" style={{ marginRight: '4%' }}
                         />
                         {/* The modal  */}
                         {
                             this.state.showModal &&
                             <EditEventModal onClose={this.onModalClose} event={event}
-                            key={event.id} onEdit={this.editEvent}/>
+                            key={event.id} onEdit={this.editEvent} users={this.state.users}/>
                         }
 
 
                         <div className="iconSize">
                         <a>
-                        <i className="glyphicon glyphicon-trash pull-right" data-toggle="modal" data-target="#deleteEvent"></i>
+                        <i className="glyphicon glyphicon-trash pull-right" data-toggle="modal"
+                        style={{ marginRight: '4%' }} data-target="#deleteEvent"></i>
                         </a>
                         </div>
                         <div className="modal fade" id="deleteEvent" tabIndex="-1" role="dialog" aria-labelledby="deleteEventLabel" aria-hidden="true">

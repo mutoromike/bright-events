@@ -88,11 +88,7 @@ class MyEvents extends Component {
       }
 
       return (
-        <div className="container page-content">
-        <br />
-        <br />
-        <br />
-        <br />
+        <div className="container page-content" style={{ marginTop: 100 }}>
         <ToastContainer
         hideProgressBar={true}
         newestOnTop={true}

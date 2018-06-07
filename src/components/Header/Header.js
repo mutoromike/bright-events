@@ -22,7 +22,6 @@ class Header extends Component {
       headers: head
     }).then((resp) => {
       toast.success(resp.data.message);
-      console.log('the message is: ', resp.data.message);
       localStorage.removeItem('Token');
       this.props.history.push('/login');
     }).catch((err) => {

@@ -18,4 +18,9 @@ describe('myEvents', () => {
     expect(wrapper.containsMatchingElement(<input className="form-control btn btn-primary"
     value="Change Password"/>)).toBe(true);
   });
+
+  it('should have an `input` element', () => {
+    const wrapper = shallow(<Profile />);
+    expect(wrapper.containsMatchingElement(<input />)).toBe(true);
+  });
 });
