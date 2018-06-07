@@ -1,37 +1,33 @@
 ## Bright Events (React App)
 
+[![Coverage Status](https://coveralls.io/repos/github/mutoromike/bright-events/badge.svg?branch=ft-add-tests-158142959)](https://coveralls.io/github/mutoromike/bright-events?branch=ft-add-tests-158142959)   [![Build Status](https://travis-ci.org/mutoromike/bright-events.svg?branch=ft-add-tests-158142959)](https://travis-ci.org/mutoromike/bright-events)
 
-Bright events provides a platform for event organizers to create and manage different types of events while making them easily accessible to target markets.
+### Link to Application: `link`
+
+Bright events provides a platform for event organizers to create and manage different types of events while making them easily accessible to target markets. Event organizers need to register for accounts, so they can create and manage their events. Users (Event Attendees) need registration to RSVP to events.
+
+Motivation
+Events are created every day, people get to events and others get to miss event RSVP. Motivation to come up with this application has originated from the fact that people need to have access to event details from wherever they are.
 
 Getting Started
 To start development
 
-* Use https://github.com/PaulKariukiRimiru/bright-events-react.git to clone the repository
+* Install Git
+* Clone to https://github.com/mutoromike/bright-events.git
+* Install Node in your local machine.
+* Run the command `npm install`
 
-* run `npm install`
+## Running The App
+* Run the application locally by running the command `npm start`
 
-* Thats it you are ready to go.
-Prerequisites
-* Ensure you have node installed in your machine
+## Running Tests
+* Run the command `npm run test`
 
-* Ensure that you have Git intalled in your machine
-Running
-To run the app localy
+### Technologies
+Bright Events App has been built with
 
-* run `npm start`
-Running the tests
-To run the tests
+* React Js (with Facebook's create-react-app)
+* Bootstrap
+* Consumes a python backend API which can be found here: `https://github.com/mutoromike/BrightEventsAPI`
 
-* run `npm run test`
-Built With
-React Js
-
-Material-ui
-
-Authors
-Paul Rimiru - Initial work - PaulKariukiRimiru
-Heroku
-Bright Events
-
-Github pages
-Bright Events
+Developer: Michael Mukalo
