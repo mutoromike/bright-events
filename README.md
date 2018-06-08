@@ -2,7 +2,7 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/mutoromike/bright-events/badge.svg?branch=ft-add-tests-158142959)](https://coveralls.io/github/mutoromike/bright-events?branch=ft-add-tests-158142959)   [![Build Status](https://travis-ci.org/mutoromike/bright-events.svg?branch=ft-add-tests-158142959)](https://travis-ci.org/mutoromike/bright-events)
 
-### Link to Application: `link`
+### Link to Application: `https://bright-events-js.herokuapp.com/`
 
 Bright events provides a platform for event organizers to create and manage different types of events while making them easily accessible to target markets. Event organizers need to register for accounts, so they can create and manage their events. Users (Event Attendees) need registration to RSVP to events.
 
