@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
+import MediaQuery from 'react-responsive';
 import { Redirect } from 'react-router-dom';
 import { headers } from '../../constants/common';
 import Event from './../Created/Event';
@@ -100,8 +101,10 @@ class MyEvents extends Component {
         />
         <div className="row container">
         <div className="col-md-12">
-
-        <div className="row">
+        <MediaQuery minDeviceWidth={700}>
+          {(matches) => {
+          if (matches) {
+            return <div className="row">
             <div className="col-md-8">
             {this.state.events.map(event =>
             <Event key={event.id} event={event} onDelete={this.deleteEvent}
@@ -183,10 +186,96 @@ class MyEvents extends Component {
                         </div>
                     {/* panel success */}
                 </div>
+           </div>;
+          }
+            return <div className="row">
+            
+            <div className="col-md-4" style={{ marginBottom: 30 }}>
+                        <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#flipFlop">
+                        Create New
+                        </button>
 
-           </div>
+                        {/* The modal  */}
+                        <div className="modal fade" id="flipFlop" tabIndex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+                        <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                        <div className="modal-header">
+                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 className="modal-title" id="modalLabel">Create Event</h4>
+                        </div>
+                        <div className="modal-body">
+
+                        {/* panel-heading */}
+                        <div style={{ paddingTop: 30 }} className="panel-body">
+                        <form id="loginform" className="form-horizontal" onSubmit= { this.createEvent }>
+
+                            <div style={{ marginBottom: 25 }} className="input-group ">
+                                <span className="input-group-addon">
+                                </span>
+                                <input type="text" name='name' className="form-control"
+                                onChange = {this.onChange} placeholder="Event Name" required />
+                            </div>
+
+                            <div style={{ marginBottom: 25 }} className="input-group ">
+                                <span className="input-group-addon">
+                                </span>
+                                <input type="text" name='category' className="form-control"
+                                onChange = {this.onChange} placeholder="Category" required />
+                            </div>
+
+                            <div style={{ marginBottom: 25 }} className="input-group ">
+                                <span className="input-group-addon">
+                                </span>
+                                <input type="text" name='location' className="form-control"
+                                onChange = {this.onChange} placeholder="Location" required />
+                            </div>
+
+                            <div style={{ marginBottom: 25 }} className="input-group ">
+                                <span className="input-group-addon">
+                                </span>
+                                <input type="date" name='date' className="form-control"
+                                onChange = {this.onChange} placeholder="Date" required />
+                            </div>
+
+                            <div style={{ marginBottom: 25 }} className="input-group ">
+                                <div className="input-group-addon">
+                                </div>
+                                <textarea type="text" name='description' className="form-control"
+                                onChange = {this.onChange} placeholder="Description" required >
+                                </textarea>
+                            </div>
+
+
+                            <div className="form-group">
+                                <div className="row">
+                                    <div className="col-sm-8 col-sm-offset-4">
+                                        <button type="submit" className="btn btn-primary" >Create Event</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                        </div>
+                        <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                    {/* panel success */}
+                </div>
+                <div className="col-md-8">
+            {this.state.events.map(event =>
+            <Event key={event.id} event={event} onDelete={this.deleteEvent}
+            onGet={this.getEvent}/>)}
+            </div>
+           </div>;
+        }}
+      </MediaQuery>
+
         </div>
-
               </div>
         </div>
 
