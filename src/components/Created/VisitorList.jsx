@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
-import { headers } from '../../constants/common';
 
 class VisitorList extends Component {
   constructor(props) {
@@ -21,9 +18,7 @@ class VisitorList extends Component {
     this.props.onClose();
   }
   render() {
-    console.log('the props are ,', this.props);
     const { open, form } = this.state;
-    const { users } = this.props;
     return (
         <div>
             <Modal show={open} onHide={() => console.log('the modal is awesome')}>
@@ -61,7 +56,7 @@ class VisitorList extends Component {
 </div>
             </Modal.Body>
             <Modal.Footer>
-              <Button onClick={this.onClose}>Cancel</Button>
+              <Button onClick={this.onClose}>Close</Button>
             </Modal.Footer>
           </Modal>
         </div>

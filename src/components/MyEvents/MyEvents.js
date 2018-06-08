@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Dialog from 'react-bootstrap-dialog';
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
@@ -24,13 +23,15 @@ class MyEvents extends Component {
     this.getEvent = this.getEvent.bind(this);
     this.deleteEvent = this.deleteEvent.bind(this);
   }
-
+    // Method to create event
+    // Gets user input, updates the state with the new data and make API call
+    // to make the actual user registration in the system.
     createEvent = (event) => {
       const head = { ...headers, Authorization: localStorage.getItem('Token') };
       event.preventDefault(); // prevent form auto-reloads
       axios({
         method: 'post',
-        url: 'http://localhost:8000/api/v2/events',
+        url: 'https://bright-events-api.herokuapp.com/api/v2/events',
         headers: head,
         data: this.state.form
       }).then((resp) => {
@@ -40,12 +41,14 @@ class MyEvents extends Component {
         toast.error(err.response.data.message);
       });
     }
-
+    // Method to delete an existing event
+    // Uses the event ID to identify which event and make the API call
+    // A user should be logged into the system to delete an event
     deleteEvent = (eventId) => {
       const head = { ...headers, Authorization: localStorage.getItem('Token') };
       axios({
         method: 'delete',
-        url: `http://localhost:8000/api/v2/events/${eventId}`,
+        url: `https://bright-events-api.herokuapp.com/api/v2/events/${eventId}`,
         headers: head,
         data: this.state.form
       }).then((resp) => {
@@ -55,12 +58,13 @@ class MyEvents extends Component {
         toast.error(err.response.data.message);
       });
     }
-
+    // Method to get all events belonging to the current user
+    // Requires that a user is first logged into the system
     getEvent = () => {
       const head = { ...headers, Authorization: localStorage.getItem('Token') };
       axios({
         method: 'get',
-        url: 'http://localhost:8000/api/v2/events',
+        url: 'https://bright-events-api.herokuapp.com/api/v2/events',
         headers: head
       }).then((resp) => {
         this.setState({
@@ -76,7 +80,7 @@ class MyEvents extends Component {
       myState.form[event.target.name] = event.target.value;
       this.setState(myState);
     }
-
+    // Get all user events after the page has loaded
     componentWillMount() {
       this.getEvent();
     }
@@ -98,16 +102,11 @@ class MyEvents extends Component {
         <div className="col-md-12">
 
         <div className="row">
-
-            {/* <div className="col-md-8 col-xs-12 col-sm-12"> */}
             <div className="col-md-8">
-
             {this.state.events.map(event =>
             <Event key={event.id} event={event} onDelete={this.deleteEvent}
             onGet={this.getEvent}/>)}
             </div>
-
-
             <div className="col-md-4">
                         <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#flipFlop">
                         Create New
@@ -169,7 +168,7 @@ class MyEvents extends Component {
                             <div className="form-group">
                                 <div className="row">
                                     <div className="col-sm-8 col-sm-offset-4">
-                                        <input type="submit" className="btn btn-primary" value="Create Event"/>
+                                        <button type="submit" className="btn btn-primary" >Create Event</button>
                                     </div>
                                 </div>
                             </div>
