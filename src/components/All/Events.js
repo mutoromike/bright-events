@@ -3,7 +3,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
 import MediaQuery from 'react-responsive';
 import { Redirect } from 'react-router-dom';
-import Pagination from 'react-js-pagination';
 import { headers } from '../../constants/common';
 import Event from './../Basic/Event';
 
@@ -12,12 +11,6 @@ class Events extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      pagination: {
-        activaPage: 1,
-        itemsPerPage: 3,
-        totalItems: 0,
-        rangeDisplay: 4
-      },
       redirect: false,
       events: [],
       originalEvents: [],
@@ -41,7 +34,6 @@ class Events extends Component {
         // Set various states
         this.setState({
           events: resp.data,
-          pagination: { ...this.state.pagination, totalItems: resp.data.length },
           categories,
           locations,
           originalEvents: resp.data
@@ -100,13 +92,6 @@ class Events extends Component {
       const myState = this.state;
       myState.form[event.target.name] = event.target.value;
       this.setState(myState);
-    }
-    onClick = (e) => {
-      console.log("we've got something running", e);
-    }
-    onPageChange = (pageNumber) => {
-      console.log('the current page is ', pageNumber);
-      this.setState({ activePage: pageNumber });
     }
 
     onInputChange = (event) => {
@@ -217,13 +202,6 @@ class Events extends Component {
       </MediaQuery>
         </div>
         </div>
-         <Pagination
-          activePage={this.state.activePage}
-          itemsCountPerPage={this.state.pagination.itemsPerPage}
-          totalItemsCount={this.state.pagination.totalItems}
-          pageRangeDisplayed={this.state.pagination.rangeDisplay}
-          onClick={this.handlePageChange}
-        />
         </div>
       );
     }
