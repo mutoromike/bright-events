@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Redirect, withRouter } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
 import { headers } from '../../constants/common';
@@ -14,12 +14,13 @@ class Login extends Component {
         redirect: false
       }
     }
-
+    // Method to facilitate a user logging into the system,
+    // after which the user is redirected to the dashboard
     loginSubmit = (event) => {
       event.preventDefault(); // prevent form auto-reloads
       axios({
         method: 'post',
-        url: 'http://localhost:8000/api/v2/auth/login',
+        url: 'https://bright-events-api.herokuapp.com/api/v2/auth/login',
         headers,
         data: this.state.form
       }).then((resp) => {
@@ -54,7 +55,7 @@ class Login extends Component {
         />
             <div id="loginbox" className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 
-                <div className="panel panel-login ">
+                <div className="panel panel-login " id="heading">
                     <div className="panel-heading">
                         <div className="row">
                             <div className="col-xs-12">

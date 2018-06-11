@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import facebook from '../../assets/img/facebook.png';
 import linkedIn from '../../assets/img/linkedIn.png';
 import { headers } from '../../constants/common';
@@ -32,13 +32,15 @@ class Event extends Component {
     this.editEvent = this.editEvent.bind(this);
     this.getRsvpList = this.getRsvpList.bind(this);
   }
-
+  // Method that allows an authenticated user to edit their own events
+  // Gets the event details from a child component "EditorModal" and
+  // uses the event ID to know which event is being edited
   editEvent = (e, event) => {
     const head = { ...headers, Authorization: localStorage.getItem('Token') };
     e.preventDefault(); // prevent form auto-reloads
     axios({
       method: 'put',
-      url: `http://localhost:8000/api/v2/events/${event.id}`,
+      url: `https://bright-events-api.herokuapp.com/api/v2/events/${event.id}`,
       headers: head,
       data: event
     }).then((resp) => {
@@ -49,12 +51,13 @@ class Event extends Component {
       toast.error(err.response.data.message);
     });
   }
-
+  // Method to fetch a list of visitors attending a specific event
+  // by using an event id to know which event is being called
   getRsvpList(eventId) {
     const head = { ...headers, Authorization: localStorage.getItem('Token') };
     axios({
       method: 'get',
-      url: `http://localhost:8000/api/v2/event/${eventId}/rsvp`,
+      url: `https://bright-events-api.herokuapp.com/api/v2/event/${eventId}/rsvp`,
       headers: head
     }).then((resp) => {
       this.setState({
@@ -70,7 +73,8 @@ class Event extends Component {
     this.setState({ form: Object.assign({}, ...this.state.form, { [name]: value }) });
   }
 
-
+  // Method used to close react modals after they have popped up
+  // and all actions completed
   onModalClose() {
     this.setState({ showModal: false });
     this.setState({ showRsvpModal: false });
@@ -143,7 +147,7 @@ class Event extends Component {
                     <h5>
                         <div>
                     <input type="submit" ref="register-submit" id="password-reset-submit"
-                    className="col-md-3 btn-primary pull-right" value="RSVP List" style={{ borderRadius: 3 }}
+                    className="col-md-3 btn-primary pull-right" value="Rsvp List" style={{ borderRadius: 3 }}
                     onClick={() => {
                         this.setState({ showRsvpModal: true });
                         this.getRsvpList(event.id);
@@ -157,8 +161,7 @@ class Event extends Component {
                         }
                     {/* Button trigger modal */}
                         {/* Edit icon */}
-                        <i
-                        onClick={() => this.setState({ showModal: true })}
+                        <i onClick={() => this.setState({ showModal: true })}
                         className="glyphicon glyphicon-edit pull-right" style={{ marginRight: '4%' }}
                         />
                         {/* The modal  */}

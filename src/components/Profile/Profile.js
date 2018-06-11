@@ -19,7 +19,7 @@ class Profile extends Component {
       event.preventDefault(); // prevent form auto-reloads
       axios({
         method: 'put',
-        url: 'http://localhost:8000/api/v2/auth/reset-password',
+        url: 'https://bright-events-api.herokuapp.com/api/v2/auth/reset-password',
         headers: head,
         data: this.state.form
       }).then((resp) => {
