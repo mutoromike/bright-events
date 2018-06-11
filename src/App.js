@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Route, Switch, Router } from 'react-router-dom';
 import './App.css';
 import MyEvents from './components/MyEvents/MyEvents';
@@ -9,7 +9,6 @@ import Login from './components/Login/Login';
 import Home from './components/Home/Home';
 import Profile from './components/Profile/Profile';
 import PrivateRoute from './components/Private/Private';
-// import Intro from './components/landing';
 import createHistory from 'history/createBrowserHistory';
 
 const history = createHistory();

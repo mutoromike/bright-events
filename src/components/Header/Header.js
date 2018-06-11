@@ -12,13 +12,14 @@ class Header extends Component {
     message: '',
     redirect: false
   }
-
-
+  // Method to logout an already authenticated user
+  // Checks if a token exists and passes it to the backend to be blacklisted,
+  // rendering it useless and deletes the token from a browser's localstorage
   logoutUser = (event) => {
     const head = { ...headers, Authorization: localStorage.getItem('Token') };
     axios({
       method: 'post',
-      url: 'http://localhost:8000/api/v2/auth/logout',
+      url: 'https://bright-events-api.herokuapp.com/api/v2/auth/logout',
       headers: head
     }).then((resp) => {
       toast.success(resp.data.message);

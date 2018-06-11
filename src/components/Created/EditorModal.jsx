@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
-import { headers } from '../../constants/common';
 
 class EditEventModal extends Component {
   constructor(props) {
@@ -21,7 +18,7 @@ class EditEventModal extends Component {
       },
     };
   }
-
+  // Method used to update the state of the form when editing
   updateEvent(event) {
     const { form } = this.state;
     form.name = event.name;
@@ -35,6 +32,7 @@ class EditEventModal extends Component {
     this.setState({ open: false });
     this.props.onClose();
   }
+  // Method to check if an event field is being edited
   inputChanged(e) {
     const { value, name } = e.target;
     this.setState({ form: Object.assign({}, this.state.form, { [name]: value }) });

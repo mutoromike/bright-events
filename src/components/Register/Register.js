@@ -14,18 +14,19 @@ class Register extends Component {
         cpassword: ''
       }
     }
+    // Method to get user inputs, setting new state and making
+    // the register call to the API
     registerSubmit = (event) => {
       event.preventDefault(); // prevent form auto-reloads
       axios({
         method: 'post',
-        url: 'http://localhost:8000/api/v2/auth/register',
+        url: 'https://bright-events-api.herokuapp.com/api/v2/auth/register',
         headers,
         data: this.state.form
       }).then((resp) => {
         toast.success(resp.data.message);
-        // resp.data
+        this.props.history.push('/login');
       }).catch((err) => {
-        // err.response.data\
         toast.error(err.response.data.message);
       });
     }
@@ -39,14 +40,7 @@ class Register extends Component {
     render() {
       const { form } = this.state;
       return (
-      <div className="container page-content">
-      <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+      <div className="container page-content" style={{ marginTop: 100 }}>
         <ToastContainer
         hideProgressBar={true}
         newestOnTop={true}
@@ -111,20 +105,12 @@ class Register extends Component {
                                   <Link to="/login" className="page-scroll">Already have an account?Login</Link>
                           </div>
                               </form>
-                              {/* Register form */}
                           </div>
-                          {/* col-lg-12 */}
                       </div>
-                      {/* row */}
                   </div>
-                  {/* panel-body */}
               </div>
-              {/* panel-login */}
           </div>
-          {/* col-md-offset-3 */}
-
       </div>
-      /* Container */
 
       );
     }
